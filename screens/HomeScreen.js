@@ -16,6 +16,7 @@ Amplify.configure(awsmobile);
 import { Container, Header, Content, Form, Item, Input, Label, Button } from 'native-base';
 import { RNS3 } from 'react-native-aws3';
 import { MonoText } from '../components/StyledText';
+//import console = require('console');
 
 export default class HomeScreen extends React.Component {
   constructor(props){
@@ -132,9 +133,10 @@ export default class HomeScreen extends React.Component {
         if(str.search("Calories from fat")){
           continue;
         }
-        if(str.search("Calories" || "calories") != -1){
+        n=str.search("Calories" || "calories");
+        if(n != -1){
           //cal=parseInt(str,10);
-          cal=str.match(/\d/g);
+          cal=str.match(/\d+/g);
           cal=cal.join("");
            
         }
