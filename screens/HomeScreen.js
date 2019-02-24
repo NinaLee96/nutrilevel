@@ -137,17 +137,18 @@ export default class HomeScreen extends React.Component {
         }
         n=str.search("Calories" || "calories");
         if(n != -1){
-          var int =parseInt(str,10);
-          cal=int;
-          //cal=str.match(/\d+/g);
-         // cal=cal.join("");
-           
+          for(j=0;j<str.legnth; j++){
+            if(!Number.isInteger(str[i])){
+              str[i]="";
+            }
+          }
+         cal=str;
+         console.log(cal);
         }
         // if(str.search("Total Fat")){
         //   fat=parseInt(str,10);
         // }
       }
-      console.log(cal);
       //console.log(fat);
    
       //  var nutri=jsonString.slice(x,jsonString.length-1);
@@ -161,9 +162,9 @@ export default class HomeScreen extends React.Component {
       //  let y=str.search("..0")
 
 
-    // }
-     
-   } catch (error) {
+    }
+ 
+    catch (error) {
      console.error(error);
    }
  }
