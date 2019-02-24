@@ -133,7 +133,7 @@ export default class HomeScreen extends React.Component {
          console.log(str);
          var parsed=str.split(" ");
           for(j =0; j < parsed.length; j++){
-              if(typeof parseInt(parsed[j]=="number")){
+              if(!isNaN(parseInt(parsed[j]))){
                 
                 cal.push(parseInt(parsed[j]));
                 console.log(cal);
@@ -145,7 +145,7 @@ export default class HomeScreen extends React.Component {
               console.log(str);
               var parsed=str.split(" ");
                for(j =0; j < parsed.length; j++){
-                   if(typeof parseInt(parsed[j]=="number")){
+                   if(!isNaN(parseInt(parsed[j]))){
                      
                      fat.push(parseInt(parsed[j]));
                      console.log(fat);
