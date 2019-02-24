@@ -114,10 +114,14 @@ export default class HomeScreen extends React.Component {
      let responseJson = await response.json();
      // console.log(responseJson);
     // console.log(responseJson.responses[0].fullTextAnnotation.text);
-     let jsonString =responseJson.responses[0].fullTextAnnotation.text;
+     let jsonString =responseJson.responses[0].fullTextAnnotation.text; // have a string that has all the nutrition facts
      console.log(jsonString);
-     let x=jsonString.search("Nutrition" ||"nutrition");
+     let x=jsonString.search("Nutrition" ||"nutrition"); // index where nutrtion information starts.
      console.log(x);
+     let y= jsonString.search("Daily"); // Where nutrition information ends we are not using vitamins.
+     console.log(y);
+     var nutri=jsonString.slice(x,y);
+     console.log(nutri);
    } catch (error) {
      console.error(error);
    }
