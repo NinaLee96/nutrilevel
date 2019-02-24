@@ -134,24 +134,22 @@ export default class HomeScreen extends React.Component {
          var parsed=str.split(" ");
           for(j =0; j < parsed.length; j++){
               if(!isNaN(parseInt(parsed[j]))){
-                
                 cal.push(parseInt(parsed[j]));
                 console.log(cal);
-              }
+                }
               }
             }
-            n=str.search("Fat"|| "fat");
-            if(n != -1){
+        n=str.search("Fat"|| "fat");
+        if(n != -1){
               console.log(str);
               var parsed=str.split(" ");
                for(j =0; j < parsed.length; j++){
                    if(!isNaN(parseInt(parsed[j]))){
-                     
                      fat.push(parseInt(parsed[j]));
                      console.log(fat);
+                      }
                    }
-                   }
-                 }
+            }
 
 
 
