@@ -114,11 +114,35 @@ export default class HomeScreen extends React.Component {
      let responseJson = await response.json();
      // console.log(responseJson);
      console.log(responseJson.responses[0].fullTextAnnotation.text);
-     // let jsonString =responseJson.responses[0].fullTextAnnotation.stringify; // have a string that has all the nutrition facts
-      // console.log(jsonString);
-      // var x=jsonString.split(" "); 
-      // console.log(x);
-   
+      let jsonString =responseJson.responses[0].fullTextAnnotation.text; // have a string that has all the nutrition facts
+       console.log(jsonString);
+       var x=jsonString.split(/\r?\n/); 
+       console.log(x);
+       var protein;
+       var sugar;
+       var carbs;
+       var sodium;
+       var fat;
+       var cal;
+      
+      
+
+      for(i=0;i<x.length ;i++){
+        var str = x[i];
+        if(str.search("Calories from fat")){
+          continue;
+        }
+        if(str.search("Calories" || "calories")){
+          //cal=parseInt(str,10);
+          cal=str.match(/\d/g);
+          cal = cal.join("");
+        }
+        // if(str.search("Total Fat")){
+        //   fat=parseInt(str,10);
+        // }
+      }
+      console.log(cal);
+      //console.log(fat);
    
       //  var nutri=jsonString.slice(x,jsonString.length-1);
     //   x=nutri.search("calories"||"Calories");
