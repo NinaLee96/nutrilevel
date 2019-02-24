@@ -139,8 +139,7 @@ export default class HomeScreen extends React.Component {
                 }
               }
             }
-        n=str.search("Fat"|| "fat");
-        if(n != -1){
+       else if(str.search("Fat"|| "fat") != -1){
               console.log(str);
               var parsed=str.split(" ");
                for(j =0; j < parsed.length; j++){
@@ -149,7 +148,7 @@ export default class HomeScreen extends React.Component {
                      console.log(fat);
                       }
                    }
-            }
+              }
 
 
 
