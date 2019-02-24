@@ -118,10 +118,22 @@ export default class HomeScreen extends React.Component {
      console.log(jsonString);
      let x=jsonString.search("Nutrition" ||"nutrition"); // index where nutrtion information starts.
      console.log(x);
-     let y= jsonString.search("2,000 calories"); // Where nutrition information ends we are not using vitamins.
-     console.log(y);
-     var nutri=jsonString.slice(x,y);
+     //let y= jsonString.search("2,000 calories"||"2000 calories"); // Where nutrition information ends we are not using vitamins. not working
+     //console.log(y);
+     var nutri=jsonString.slice(x,jsonString.length-1);
      console.log(nutri);
+     x=nutri.search("calories"||"Calories");
+     let y =nutri.search("Total");
+     var calories=nutri.slice(x,y);
+     console.log(calories);
+    
+    // function parseInfo(str,info,info2){
+     //   let x =str.search(info);
+      //  let y=str.search("..0")
+
+
+    // }
+     
    } catch (error) {
      console.error(error);
    }
