@@ -123,7 +123,7 @@ export default class HomeScreen extends React.Component {
        var sugar;
        var carbs;
        var sodium;
-       var fat;
+       var fat=[];
        var cal=[];
      
       for(i=0;i<x.length ;i++){
@@ -147,7 +147,7 @@ export default class HomeScreen extends React.Component {
                for(j =0; j < parsed.length; j++){
                    if(typeof parseInt(parsed[j]=="number")){
                      
-                     cal.push(parseInt(parsed[j]));
+                     fat.push(parseInt(parsed[j]));
                      console.log(fat);
                    }
                    }
@@ -177,8 +177,6 @@ export default class HomeScreen extends React.Component {
      //   let x =str.search(info);
       //  let y=str.search("..0")
 
-
-    // 
     }
     catch (error) {
      console.error(error);
