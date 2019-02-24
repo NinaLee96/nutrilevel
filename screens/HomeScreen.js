@@ -135,9 +135,9 @@ export default class HomeScreen extends React.Component {
         }
         n=str.search("Calories" || "calories");
         if(n != -1){
-          //cal=parseInt(str,10);
-          cal=str.match(/\d+/g);
-          cal=cal.join("");
+          cal=parseInt(str,10);
+          //cal=str.match(/\d+/g);
+         // cal=cal.join("");
            
         }
         // if(str.search("Total Fat")){
