@@ -124,38 +124,49 @@ export default class HomeScreen extends React.Component {
        var carbs;
        var sodium;
        var fat;
-       var cal;
-      
-
-      cal=parseInt("123");
-      console.log(cal);
-
+       var cal=[];
+     
       for(i=0;i<x.length ;i++){
         var str = x[i];
-        // if(str.search("Calories" && ("from"||"fat"||"FAT"))){
-        //   continue;
-        // }
         n=str.search("Calories" || "calories");
         if(n != -1){
          console.log(str);
          var parsed=str.split(" ");
           for(j =0; j < parsed.length; j++){
               if(typeof parseInt(parsed[j]=="number")){
-                cal=parsedInt(parsed[j]);
+                
+                cal.push(parseInt(parsed[j]));
                 console.log(cal);
               }
               }
             }
+            n=str.search("Total Fat" || "Total fat");
+            if(n != -1){
+              console.log(str);
+              var parsed=str.split(" ");
+               for(j =0; j < parsed.length; j++){
+                   if(typeof parseInt(parsed[j]=="number")){
+                     
+                     cal.push(parseInt(parsed[j]));
+                     console.log(fat);
+                   }
+                   }
+                 }
+
+
+
           }
-      
-        
-        // if(str.search("Total Fat")){
-        //   fat=parseInt(str,10);
-        // }
-      
+  
+
+      console.log(fat);
+       console.log(sugar);
+       console.log(protein);
+       console.log(carbs);
+       console.log(sodium);
       console.log(cal);
-      //console.log(fat);
    
+  
+  
       //  var nutri=jsonString.slice(x,jsonString.length-1);
     //   x=nutri.search("calories"||"Calories");
     //  var y =nutri.search("Total");
