@@ -113,9 +113,11 @@ export default class HomeScreen extends React.Component {
        });
      let responseJson = await response.json();
      // console.log(responseJson);
-     console.log(responseJson.responses[0].fullTextAnnotation.text);
+    // console.log(responseJson.responses[0].fullTextAnnotation.text);
      let jsonString =responseJson.responses[0].fullTextAnnotation.text;
      console.log(jsonString);
+     let x=jsonString.search("Nutrition" ||"nutrition");
+     console.log(x);
    } catch (error) {
      console.error(error);
    }
