@@ -27,13 +27,15 @@ export default class App extends Component {
       <TextInput
         value={this.state.username}
         onChangeText={(username) => this.setState({ username })}
-        placeholder={'Steven'}
+        placeholder={'Username'}
+        placeholderTextColor={'white'}
         style={styles.input}
       />
       <TextInput
         value={this.state.password}
         onChangeText={(password) => this.setState({ password })}
         placeholder={'Password'}
+        placeholderTextColor={'white'}
         secureTextEntry={true}
         style={styles.input}
       />
@@ -64,6 +66,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'black',
     marginBottom: 10,
-    backgroundColor: 'black'
+    backgroundColor: 'black',
+    color:'white'
   },
 });

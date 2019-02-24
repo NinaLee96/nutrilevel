@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
   "expoServerPort": 19000,
-  "packagerPort": null,
-  "packagerPid": null,
+  "packagerPort": 19001,
+  "packagerPid": 13144,
   "expoServerNgrokUrl": "https://k9-5g5.anonymous.nutrilevel.exp.direct",
   "packagerNgrokUrl": "https://packager.k9-5g5.anonymous.nutrilevel.exp.direct",
-  "ngrokPid": 12980
+  "ngrokPid": 13368
 }
