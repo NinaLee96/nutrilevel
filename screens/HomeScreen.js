@@ -26,9 +26,10 @@ export default class HomeScreen extends React.Component {
     super(props)
 
     this.state = {
-        loading: true,
-        refreshing: false,
-        posts: []
+      username: '',
+      loading: true,
+      refreshing: false,
+      posts: []
     };
   }
   static navigationOptions = {
@@ -38,6 +39,21 @@ export default class HomeScreen extends React.Component {
   _onRefresh = () => {
     this.setState({refreshing: true});
     this.getPosts();
+  }
+
+  async componentWillMount(){
+    const session = Auth.currentAuthenticatedUser({
+          bypassCache: true  // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
+      }).then((user) => {
+        // console.log(user.signInUserSession.idToken.payload);
+        let payload = user.signInUserSession.idToken.payload
+        this.setState({
+          username: user.username,
+        });
+      })
+      .catch((err) => {
+        console.log('Error:',err);
+      });
   }
 
   async componentDidMount(){
@@ -57,7 +73,7 @@ export default class HomeScreen extends React.Component {
    });
    // this.setState({image: result.uri});
    // console.log(result);
-   // this.analyzeText(result.base64);
+   this.analyzeText(result.base64);
  };
 
  async pickImage() {
@@ -67,47 +83,175 @@ export default class HomeScreen extends React.Component {
       ratio: [4, 3]
     });
 
-    // if (!result.cancelled) {
+    if (!result.cancelled) {
       // console.log(result);
-      // this.analyzeText(result.base64);
+      this.analyzeText(result.base64);
       // this.setState({image: result.uri});
       // this.uploadImage(result.uri);
-    // }
+    }
   };
 
- // async analyzeText(image) {
- //   // console.log(response.body.postResponse.location)
- //   try {
- //     let response = await fetch(
- //       'https://vision.googleapis.com/v1/images:annotate?key=AIzaSyCA3xZkHjuIT7TZZvc7cT2k2IGi2ZF-Voc',{
- //          method: 'POST',
- //          headers: {
- //            'Accept': 'application/json',
- //            'Content-Type': 'application/json',
- //          },
- //          body: JSON.stringify({
- //            "requests": [
- //              {
- //                "image": {
- //                  "content": image
- //                },
- //                "features": [
- //                  {
- //                    "type": "TEXT_DETECTION",
- //                    "maxResults": 1
- //                  }
- //                ]
- //              }
- //            ]
- //          }),
- //       });
- //     let responseJson = await response.json();
- //     // console.log(responseJson);
- //     console.log(responseJson.responses[0].fullTextAnnotation.text);
- //   } catch (error) {
- //     console.error(error);
- //   }
- // }
+ async analyzeText(image) {
+   // console.log(response.body.postResponse.location)
+   try {
+     let response = await fetch(
+       'https://vision.googleapis.com/v1/images:annotate?key=AIzaSyCA3xZkHjuIT7TZZvc7cT2k2IGi2ZF-Voc',{
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            "requests": [
+              {
+                "image": {
+                  "content": image
+                },
+                "features": [
+                  {
+                    "type": "TEXT_DETECTION",
+                    "maxResults": 1
+                  }
+                ]
+              }
+            ]
+          }),
+       });
+     let responseJson = await response.json();
+     console.log(responseJson.responses[0].fullTextAnnotation.text);
+     let jsonString =responseJson.responses[0].fullTextAnnotation.text; // have a string that has all the nutrition facts
+       console.log(jsonString);
+       var x=jsonString.split(/\r?\n/);
+       console.log(x);
+       var protein=[];
+       var sugar=[];
+       var carbs=[];
+       var sodium=[];
+       var fat=[];
+       var cal=[];
+       var fib=[];
+       var cho=[];
+       x.push(" ");
+
+      for(i=0;i<x.length ;i++){
+        var str = x[i];
+        b=str.search("vitamin"||"Vitamin");
+        if(b!=-1){
+          i=x.length-1;
+        }
+        n=str.search("Calories" || "calories" || "Calorles" );
+        if(n != -1){
+         console.log(str);
+         var parsed=str.split(" ");
+          for(j =0; j < parsed.length; j++){
+              if(!isNaN(parseInt(parsed[j]))){
+                cal.push(parseInt(parsed[j]));
+                //console.log(cal);
+                }
+              }
+            }
+       else if(str.search("Fat"|| "fat") != -1){
+              console.log(str);
+              var parsed=str.split(" ");
+               for(j =0; j < parsed.length; j++){
+                   if(!isNaN(parseInt(parsed[j]))){
+                     fat.push(parseInt(parsed[j]));
+                     //console.log(fat);
+                      }
+                   }
+              }
+        else if(str.search("Cholesterol"|| "cholesterol") != -1){
+                console.log(str);
+                var parsed=str.split(" ");
+                 for(j =0; j < parsed.length; j++){
+                     if(!isNaN(parseInt(parsed[j]))){
+                      cho.push(parseInt(parsed[j]));
+                       //console.log(cho);
+                        }
+                     }
+                }
+        else if(str.search("Sodium"|| "sodium") != -1){
+                  console.log(str);
+                  var parsed=str.split(" ");
+                   for(j =0; j < parsed.length; j++){
+                       if(!isNaN(parseInt(parsed[j]))){
+                         sodium.push(parseInt(parsed[j]));
+                         //console.log(sodium);
+                          }
+                       }
+                  }
+        else if(str.search("Carbohydrate"|| "carbohydrate") != -1){
+                    console.log(str);
+                    var parsed=str.split(" ");
+                     for(j =0; j < parsed.length; j++){
+                         if(!isNaN(parseInt(parsed[j]))){
+                          carbs.push(parseInt(parsed[j]));
+                           //console.log(carbs);
+                            }
+                         }
+                    }
+        else if(str.search("Fiber"|| "fiber") != -1){
+                      console.log(str);
+                      var parsed=str.split(" ");
+                       for(j =0; j < parsed.length; j++){
+                           if(!isNaN(parseInt(parsed[j]))){
+                            fib.push(parseInt(parsed[j]));
+                             //console.log(fib);
+                              }
+                           }
+                      }
+              else if(str.search("Sugar") != -1){
+                console.log(str);
+                var parsed=str.split(" ");
+                 for(j =0; j < parsed.length; j++){
+                     if(!isNaN(parseInt(parsed[j]))){
+                       sugar.push(parseInt(parsed[j]));
+                       //console.log(sugar);
+                        }
+                     }
+                }
+
+                  else if(str.search("Protein") != -1){
+                    console.log(str);
+                    var parsed=str.split(" ");
+                     for(j =0; j < parsed.length; j++){
+                         if(!isNaN(parseInt(parsed[j]))){
+                           protein.push(parseInt(parsed[j]));
+                           //console.log(protein);
+                            }
+                         }
+                    }
+
+
+          }
+
+      console.log(cal);
+      console.log(fat);
+      console.log(cho);
+      console.log(sodium);
+      console.log(carbs);
+      console.log(fib);
+      console.log(sugar);
+      console.log(protein);
+
+    data = {
+      user: this.state.username,
+      item: "NA",
+      image: "NA",
+      serving_size: "NA",
+      calories: cal[0],
+      total_fat: fat[0]+"g",
+      sodium: sodium[0]+"mg",
+      carbs: carbs[0]+"g",
+      sugars: sugar[0]+"g",
+      protein: protein[0],
+    };
+    const newPost = API.graphql(graphqlOperation(mutations.createTodo,{input: data}));
+
+  } catch (error) {
+     console.error(error);
+   }
+ }
 
   addPost() {
     data = {
@@ -126,6 +270,7 @@ export default class HomeScreen extends React.Component {
   }
 
   async getPosts(){
+    console.log(this.state.user);
     this.setState({posts: []});
     const allPosts = await API.graphql(graphqlOperation(queries.listTodos, {limit: 100}));
     allPosts.data.listTodos.items.map(post => (
@@ -174,14 +319,16 @@ export default class HomeScreen extends React.Component {
           }
       >
       <Content>
-      {this.state.posts.map((post, index) => (
+      {this.state.posts.filter(post => post.user === this.state.username).map((post, index) => (
         <Card key={post.key}>
           <CardItem
           header
           button
           onPress={() => {this.props.navigation.navigate('PostInfo', {postData: post})}}
           >
-            {post.image ? (<Image source={{uri: `${post.image}`}} style={{width: 192, height: 192, flex: 1}}/>) : (<Text>No Image</Text>)}
+          <Text>
+          No Image
+          </Text>
           </CardItem>
           <CardItem>
             <Body>
@@ -191,7 +338,7 @@ export default class HomeScreen extends React.Component {
             </Body>
           </CardItem>
           <CardItem footer>
-            <Text>asdf</Text>
+            <Text>Calories: {post.calories}</Text>
           </CardItem>
        </Card>
      ))}
@@ -205,7 +352,7 @@ export default class HomeScreen extends React.Component {
         offsetX={15}
         offsetY={15}
         >
-          <ActionButton.Item size={40} buttonColor='white' title="Select Image" onPress={() => this.pickImage()}>
+          <ActionButton.Item size={40} buttonColor='white' title="Select Image" onPress={() => this.tryCompress()}>
             <Icon name="image" style={styles.actionButtonIcon} />
           </ActionButton.Item>
           <ActionButton.Item size={40} buttonColor='white' title="Capture Image" onPress={() => this.takeImage()}>

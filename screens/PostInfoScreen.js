@@ -86,9 +86,6 @@ export default class PostInfoScreen extends React.Component {
               <Text style={{fontWeight: 'bold'}} >Protein: {this.state.protein}</Text>
             </Body>
           </CardItem>
-          <CardItem footer bordered>
-            <Text>GeekyAnts</Text>
-          </CardItem>
         </Card>
       </Content>
     </Container>
