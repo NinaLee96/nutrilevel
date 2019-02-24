@@ -8,14 +8,15 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { WebBrowser, ImagePicker, Permissions } from 'expo';
+import { Container, Header, Content, Form, Item, Input, Label, Button } from 'native-base';
+
 import Amplify, { Auth, Storage } from 'aws-amplify';
 import awsmobile from '../aws-exports';
 Amplify.configure(awsmobile);
-import { Container, Header, Content, Form, Item, Input, Label, Button } from 'native-base';
 
-export default class HomeScreen extends React.Component {
+export default class SignIn extends React.Component {
   constructor(props){
     super(props)
 
@@ -29,122 +30,66 @@ export default class HomeScreen extends React.Component {
     header: null,
   };
 
-  /*async componentWillMount(){
-    const { status, expires, permissions } = await Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL)
-    if (status !== 'granted') {
-      alert('Hey! You might want to enable notifications for my app, they are good.');
-    }
-  }
-  */
   handleChange(name, value) {
     this.setState({ [name]: value });
   }
 
-  /*trySignIn() {
+  trySignIn() {
     let username = this.state.username.trim();
     let password = this.state.password;
+
     Auth.signIn(
       username,
       password,
     ).then(user => {
-      console.log("Success!")
+      console.log("Signed in successfully!")
       console.log(user);
+      this.props.navigation.navigate('Main');
     })
     .catch(err => {
-      console.log("Error!")
+      console.log("Error! user not authenticated, check logs.")
       console.log(err);
     });
+
   }
-
-  async takeImage() {
-   let result = await ImagePicker.launchCameraAsync({
-     allowsEditing: false,
-     aspect: [4, 3]
-   });
-   console.log(result);
-   this.setState({image: result.uri});
-   this.uploadImage();
- };
-
- uploadImage(){
-   let name = new Date();
-   const file = {
-      uri: this.state.image,
-      name: `${name}.png`,
-      type: "image/png"
-    }
-
-  const options = {
-    keyPrefix: "images/",
-    bucket: "nutrilevel-media-nutrienv",
-    region: "us-west-2",
-    accessKey: "AKIAJXYYAMGXKDUQB27Q",
-    secretKey: "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",
-    successActionStatus: 201
-  }
-
-  RNS3.put(file, options).then(response => {
-    if (response.status !== 201)
-      throw new Error("Failed to upload image to S3");
-    console.log(response.body);
-    /**
-     * {
-     *   postResponse: {
-     *     bucket: "your-bucket",
-     *     etag : "9f620878e06d28774406017480a59fd4",
-     *     key: "uploads/image.png",
-     *     location: "https://your-bucket.s3.amazonaws.com/uploads%2Fimage.png"
-     *   }
-     * }
-     *//*
-  });
- }
-
- pickImage = async () => {
-   const result = await ImagePicker.launchImageLibraryAsync({
-     allowsEditing: false,
-     ratio: [4, 3]
-   });
-
-   if (!result.cancelled) {
-     this.setState({
-       image: result.uri,
-     });
-   }
-   console.log(this.state.image);
-   this.uploadImage();
- };*/
-
- doNothing(){}
 
   render() {
     return (
-      <View style={styles.container}>
+      <KeyboardAwareScrollView
+        style={{ backgroundColor: 'white' }}
+        resetScrollToCoords={{ x: 0, y: 0 }}
+        contentContainerStyle={styles.container}
+        scrollEnabled={false}
+        enableOnAndroid={true}
+      >
+      <Image
+        source={require('../assets/images/icon.png')}
+        style={{position: 'absolute', alignSelf: 'center', top: 100}}
+      />
+        <Form style={{top: 50}}>
 
-      <Form style={{top: 50}}>
-        <Item regular>
-          <Input placeholder = 'username' onChangeText={(e) => {this.handleChange('username', e)}} style={styles.input}/>
-        </Item>
-        <Item regular>
-          <Input placeholder = 'password' onChangeText={(e) => {this.handleChange('password', e)}} style={styles.input}/>
-        </Item>
-        <Button onPress={() => {this.doNothing()}} style={[styles.inputButton, {top: 15, width: 120, alignSelf: 'center' , justifyContent: 'center'}]}>
-          <Text style={{flexDirection: "row", justifyContent: "center",color:'white'}}>Sign In</Text>
-        </Button>
-        <Button onPress={() => {this.doNothing()}} style={[styles.inputButton, {top: 45, width: 120, alignSelf: 'center', justifyContent: 'center'}]}>
-          <Text style={{textAlign:'center',color:'white'}}>Take Image</Text>
-        </Button>
-        <Button onPress={() => {this.doNothing()}} style={[styles.inputButton, {top: 75, width: 120, alignSelf: 'center', justifyContent: 'center'}]}>
-          <Text style={{textAlign:'center',color:'white'}}>Image Picker</Text>
-        </Button>
-        <Button onPress={() => {this.doNothing()}} style={[styles.inputButton, {top: 175, width: 120, alignSelf: 'center', justifyContent: 'center'}]}>
-          <Text style={{textAlign:'center',color:'white'}}>Sign Up</Text>
-        </Button>
-      </Form>
-      </View>
+          <Item style={{top: 300}} regular>
+            <Input placeholderTextColor={'white'} placeholder = 'username' onChangeText={(e) => {this.handleChange('username', e)}} style={styles.input}/>
+          </Item>
+
+          <Item style={{top: 310}} regular>
+            <Input secureTextEntry={true} placeholderTextColor={'white'} placeholder = 'password' onChangeText={(e) => {this.handleChange('password', e)}} style={styles.input}/>
+          </Item>
+
+          <Button onPress={() => {this.trySignIn()}} style={[styles.inputButton, {top: 320, width: 120, alignSelf: 'center' , justifyContent: 'center'}]}>
+            <Text style={{flexDirection: "row", justifyContent: "center",color:'white'}}>Sign In</Text>
+          </Button>
+
+          <Button onPress={() => {this.props.navigation.navigate('SignUp')}} style={[styles.inputButton, {top: 330, width: 120, alignSelf: 'center', justifyContent: 'center'}]}>
+            <Text style={{textAlign:'center',color:'white'}}>Sign Up</Text>
+          </Button>
+          <Button onPress={() => {this.props.navigation.navigate('ForgotPassword')}} style={[styles.inputButton, {top: 340, width: 120, alignSelf: 'center', justifyContent: 'center'}]}>
+            <Text style={{textAlign:'center',color:'white'}}>Forgot Password?</Text>
+          </Button>
+        </Form>
+      </KeyboardAwareScrollView>
     );
-  }
-
+  };
 }
 
 const styles = StyleSheet.create({
@@ -236,8 +181,6 @@ const styles = StyleSheet.create({
   },
   input: {
     width: 100,
-    //height: 44,
-    //padding: 10,
     borderWidth: 0,
     borderColor: 'black',
     marginBottom: 20,

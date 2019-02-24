@@ -9,11 +9,11 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-
+import { Auth } from 'aws-amplify';
 import { Container, Header, Content, Form, Item, Input, Label, Button } from 'native-base';
 
 
-export default class HomeScreen extends React.Component {
+export default class ForgotPassword extends React.Component {
   constructor(props){
     super(props)
 
@@ -30,7 +30,19 @@ export default class HomeScreen extends React.Component {
     this.setState({ [name]: value });
   }
 
- 
+  tryForgotPassword(){
+    let username = this.state.username;
+    Auth.forgotPassword(username)
+    .then(data => {
+      console.log("Username accepted!");
+      this.props.navigation.navigate("ConfirmChange");
+    })
+    .catch(err => {
+      console.log("Something is wrong with your username.", err);
+    });
+  }
+
+
  doNothing(){}
 
   render() {
@@ -39,10 +51,10 @@ export default class HomeScreen extends React.Component {
 
       <Form style={{top: 50}}>
         <Text style={styles.forgotTitle}>Forgot Password</Text>
-        <Item regular>
-          <Input placeholder = 'username' onChangeText={(e) => {this.handleChange('username', e)}} style={styles.input}/>
+        <Item style={{top: 90}} regular>
+          <Input placeholderTextColor={'white'} placeholder='username' onChangeText={(e) => {this.handleChange('username', e)}} style={styles.input}/>
         </Item>
-        <Button onPress={() => {this.doNothing()}} style={[styles.inputButton, {top: 100, width: 120, alignSelf: 'center', justifyContent: 'center'}]}>
+        <Button onPress={() => {this.tryForgotPassword()}} style={[styles.inputButton, {top: 130, width: 120, alignSelf: 'center', justifyContent: 'center'}]}>
           <Text style={{textAlign:'center',color:'white'}}>Send</Text>
         </Button>
       </Form>
@@ -54,7 +66,8 @@ export default class HomeScreen extends React.Component {
 const styles = StyleSheet.create({
   forgotTitle: {
     fontSize: 46,
-    textAlign: 'center'
+    textAlign: 'center',
+    top: 10
   },
   container: {
     flex: 1,
@@ -62,11 +75,9 @@ const styles = StyleSheet.create({
   },
   input: {
     width: 100,
-    //height: 44,
     padding: 15,
     borderWidth: 0,
     borderColor: 'black',
-    // marginBottom: 20,
     backgroundColor: 'black',
     color:'white'
   },
