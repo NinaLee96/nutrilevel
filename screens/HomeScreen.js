@@ -140,7 +140,7 @@ export default class HomeScreen extends React.Component {
               }
               }
             }
-            n=str.search("Total Fat" || "Total fat" || "Fat"|| "fat");
+            n=str.search("Fat"|| "fat");
             if(n != -1){
               console.log(str);
               var parsed=str.split(" ");
