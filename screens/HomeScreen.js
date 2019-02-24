@@ -113,19 +113,16 @@ export default class HomeScreen extends React.Component {
        });
      let responseJson = await response.json();
      // console.log(responseJson);
-    // console.log(responseJson.responses[0].fullTextAnnotation.text);
-     let jsonString =responseJson.responses[0].fullTextAnnotation.text; // have a string that has all the nutrition facts
-     console.log(jsonString);
-     let x=jsonString.search("Nutrition" ||"nutrition"); // index where nutrtion information starts.
-     console.log(x);
-     //let y= jsonString.search("2,000 calories"||"2000 calories"); // Where nutrition information ends we are not using vitamins. not working
-     //console.log(y);
-     var nutri=jsonString.slice(x,jsonString.length-1);
-     console.log(nutri);
-     x=nutri.search("calories"||"Calories");
-     let y =nutri.search("Total");
-     var calories=nutri.slice(x,y);
-     console.log(calories);
+     console.log(responseJson.responses[0].fullTextAnnotation.text);
+      let jsonString =responseJson.responses[0].fullTextAnnotation.text; // have a string that has all the nutrition facts
+      console.log(jsonString);
+      var x=jsonString.split(/\n/); // index where nutrtion information starts.
+      console.log(x);
+    //  var nutri=jsonString.slice(x,jsonString.length-1);
+    //   x=nutri.search("calories"||"Calories");
+    //  var y =nutri.search("Total");
+    //  var calories=nutri.slice(x,y);
+    //  console.log(calories);
     
     // function parseInfo(str,info,info2){
      //   let x =str.search(info);
