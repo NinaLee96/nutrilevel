@@ -127,7 +127,7 @@ export default class HomeScreen extends React.Component {
        var cal;
       
 
-      cal=parseInt("123",10);
+      cal=parseInt("123");
       console.log(cal);
 
       for(i=0;i<x.length ;i++){
@@ -137,15 +137,13 @@ export default class HomeScreen extends React.Component {
         // }
         n=str.search("Calories" || "calories");
         if(n != -1){
-         
+         console.log(str);
          var parsed=str.split(" ");
           for(j =0; j < parsed.length; j++){
-              if(parsed[j] == "Calories" || parsed[j] == "calories" ){
-                  cal = parseInt(parsed[j+1])
-                  console.log(cal);
-                  if(isNaN(cal)){
-                      cal = parseInt(x[i+1]);
-                  }
+              if(typeof parseInt(parsed[j]=="number")){
+                cal==parsedInt(parsed[j]);
+                console.log(cal);
+              }
               }
           }
       }
