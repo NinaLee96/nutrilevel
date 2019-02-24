@@ -212,7 +212,7 @@ export default class HomeScreen extends React.Component {
                           var parsed=str.split(" ");
                            for(j =0; j < parsed.length; j++){
                                if(!isNaN(parseInt(parsed[j]))){
-                                car.push(parseInt(parsed[j]));
+                                cho.push(parseInt(parsed[j]));
                                  //console.log(car);
                                   }
                                }
