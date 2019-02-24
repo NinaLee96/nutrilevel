@@ -1,9 +1,9 @@
 {
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
+  "packagerPort": 19001,
+  "packagerPid": 5744,
+  "expoServerNgrokUrl": "https://nx-8ju.anonymous.nutrilevel.exp.direct",
+  "packagerNgrokUrl": "https://packager.nx-8ju.anonymous.nutrilevel.exp.direct",
+  "ngrokPid": 7348,
   "devToolsPort": 19002,
-  "expoServerPort": null
+  "expoServerPort": 19000
 }

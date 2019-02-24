@@ -132,14 +132,14 @@ export default class HomeScreen extends React.Component {
 
       for(i=0;i<x.length ;i++){
         var str = x[i];
-        if(str.search("Calories" && ("from"||"fat"||"FAT"))){
-          continue;
-        }
+        // if(str.search("Calories" && ("from"||"fat"||"FAT"))){
+        //   continue;
+        // }
         n=str.search("Calories" || "calories");
         if(n != -1){
          
          var parsed=str.split(" ");
-          for(j =0; j < list.length; j++){
+          for(j =0; j < parsed.length; j++){
               if(parsed[j] == "Calories" || parsed[j] == "calories" ){
                   cal = parseInt(parsed[j+1])
                   console.log(cal);
