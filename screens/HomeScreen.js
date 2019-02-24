@@ -126,7 +126,9 @@ export default class HomeScreen extends React.Component {
        var fat;
        var cal;
       
-      
+
+      cal=parseInt("Calories 123",10);
+      console.log(cal);
 
       for(i=0;i<x.length ;i++){
         var str = x[i];
@@ -135,7 +137,8 @@ export default class HomeScreen extends React.Component {
         }
         n=str.search("Calories" || "calories");
         if(n != -1){
-          cal=parseInt(str,10);
+          var int =parseInt(str,10);
+          cal=int;
           //cal=str.match(/\d+/g);
          // cal=cal.join("");
            
