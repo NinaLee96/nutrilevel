@@ -43,7 +43,6 @@ export default class SignIn extends React.Component {
       password,
     ).then(user => {
       console.log("Signed in successfully!")
-      console.log(user);
       this.props.navigation.navigate('Main');
     })
     .catch(err => {

@@ -4,9 +4,9 @@ import {
   Platform,
   ScrollView,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
+  RefreshControl
 } from 'react-native';
 
 import { WebBrowser, ImagePicker, Permissions } from 'expo';
@@ -16,7 +16,7 @@ Amplify.configure(awsmobile);
 import * as mutations from '../src/graphql/mutations';
 import * as queries from '../src/graphql/queries';
 import ActionButton from 'react-native-action-button';
-import { Container, Header, Content, Form, Item, Input, Label, Button } from 'native-base';
+import { Container, Header, Content, Form, Item, Input, Label, Button, Card, CardItem, Text, Body } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import API, { graphqlOperation } from '@aws-amplify/api';
 import { MonoText } from '../components/StyledText';
@@ -27,19 +27,25 @@ export default class HomeScreen extends React.Component {
 
     this.state = {
         loading: true,
-        username: '',
-        password: ''
+        refreshing: false,
+        posts: []
     };
   }
   static navigationOptions = {
-    header: null,
+    title: 'Home',
   };
 
-  async componentWillMount(){
+  _onRefresh = () => {
+    this.setState({refreshing: true});
+    this.getPosts();
+  }
+
+  async componentDidMount(){
     const { status, expires, permissions } = await Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL)
     if (status !== 'granted') {
       alert('Hey! You might want to enable notifications for my app, they are good.');
     }
+    this.getPosts();
   }
 
 
@@ -120,9 +126,29 @@ export default class HomeScreen extends React.Component {
   }
 
   async getPosts(){
+    this.setState({posts: []});
     const allPosts = await API.graphql(graphqlOperation(queries.listTodos, {limit: 100}));
-    this.setState({data: allPosts});
-    console.log(this.state.data);
+    allPosts.data.listTodos.items.map(post => (
+      this.setState({
+        posts: [
+          ...this.state.posts,
+          {
+            user: post.user,
+            key: post.id,
+            item: post.item,
+            image: post.image,
+            serving_size: post.serving_size,
+            calories: post.calories,
+            total_fat: post.total_fat,
+            sodium: post.sodium,
+            carbs: post.carbs,
+            sugars: post.sugars,
+            protein: post.protein,
+          }
+        ]
+      })
+    ))
+    this.setState({refreshing: false});
   }
 
   trySignOut(){
@@ -138,21 +164,42 @@ export default class HomeScreen extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <Container>
+      <ScrollView
+        refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this._onRefresh}
+            />
+          }
+      >
+      <Content>
+      {this.state.posts.map((post, index) => (
+        <Card key={post.key}>
+          <CardItem
+          header
+          button
+          onPress={() => {this.props.navigation.navigate('PostInfo', {postData: post})}}
+          >
+            {post.image ? (<Image source={{uri: `${post.image}`}} style={{width: 192, height: 192, flex: 1}}/>) : (<Text>No Image</Text>)}
+          </CardItem>
+          <CardItem>
+            <Body>
+              <Text style={{fontWeight: 'bold'}}>
+              {post.item}
+              </Text>
+            </Body>
+          </CardItem>
+          <CardItem footer>
+            <Text>asdf</Text>
+          </CardItem>
+       </Card>
+     ))}
+      </Content>
+      </ScrollView>
 
-      <Form style={{top: 50}}>
-        <Button onPress={() => {this.addPost();}} style={{top: 75, width: 120, alignSelf: 'center'}}>
-          <Text style={{justifyContent:'center'}}>Add Post</Text>
-        </Button>
-        <Button onPress={() => {this.getPosts();}} style={{top: 85, width: 120, alignSelf: 'center'}}>
-          <Text style={{justifyContent:'center'}}>Get Posts</Text>
-        </Button>
-        <Button onPress={() => {this.props.navigation.navigate('Test')}} style={{top: 95, width: 120, alignSelf: 'center'}}>
-          <Text style={{justifyContent:'center'}}>Navigate</Text>
-        </Button>
-      </Form>
       <ActionButton
-        buttonColor="#03a9f4"
+        buttonColor="black"
         backgroundTappable={true}
         fixNativeFeedbackRadius={true}
         offsetX={15}
@@ -165,7 +212,8 @@ export default class HomeScreen extends React.Component {
             <Icon name="camera" style={styles.actionButtonIcon} />
           </ActionButton.Item>
         </ActionButton>
-      </View>
+
+      </Container>
     );
   }
 
@@ -179,7 +227,7 @@ const styles = StyleSheet.create({
   actionButtonIcon: {
   fontSize: 20,
   height: 22,
-  color: '#03a9f4',
+  color: 'black',
 },
   developmentModeText: {
     marginBottom: 20,

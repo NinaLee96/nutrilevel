@@ -18,6 +18,7 @@ import HomeScreen from '../screens/HomeScreen';
 import CameraScreen from '../screens/CameraScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import ChangePasswordScreen from '../screens/ChangePasswordScreen';
+import PostInfoScreen from '../screens/PostInfoScreen';
 
 class TestScreen extends React.Component {
   constructor(props){
@@ -47,7 +48,7 @@ class TestScreen extends React.Component {
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
-  Test: TestScreen
+  PostInfo: PostInfoScreen
 });
 
 HomeStack.navigationOptions = {
