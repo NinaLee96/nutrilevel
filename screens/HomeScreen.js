@@ -119,12 +119,14 @@ export default class HomeScreen extends React.Component {
        console.log(jsonString);
        var x=jsonString.split(/\r?\n/); 
        console.log(x);
-       var protein;
-       var sugar;
-       var carbs;
-       var sodium;
+       var protein=[];
+       var sugar=[];
+       var carbs=[];
+       var sodium=[];
        var fat=[];
        var cal=[];
+       var fib=[];
+       var cho=[];
        x.push(" ");
      
       for(i=0;i<x.length ;i++){
@@ -140,7 +142,7 @@ export default class HomeScreen extends React.Component {
           for(j =0; j < parsed.length; j++){
               if(!isNaN(parseInt(parsed[j]))){
                 cal.push(parseInt(parsed[j]));
-                console.log(cal);
+                //console.log(cal);
                 }
               }
             }
@@ -150,36 +152,85 @@ export default class HomeScreen extends React.Component {
                for(j =0; j < parsed.length; j++){
                    if(!isNaN(parseInt(parsed[j]))){
                      fat.push(parseInt(parsed[j]));
-                     console.log(fat);
+                     //console.log(fat);
                       }
                    }
               }
+              else if(str.search("sugar"|| "Sugar"||"Sugars" || "sugars") != -1){
+                console.log(str);
+                var parsed=str.split(" ");
+                 for(j =0; j < parsed.length; j++){
+                     if(!isNaN(parseInt(parsed[j]))){
+                       sugar.push(parseInt(parsed[j]));
+                       //console.log(sugar);
+                        }
+                     }
+                }
 
-
-
+                else if(str.search("Sodium"|| "sodium") != -1){
+                  console.log(str);
+                  var parsed=str.split(" ");
+                   for(j =0; j < parsed.length; j++){
+                       if(!isNaN(parseInt(parsed[j]))){
+                         sodium.push(parseInt(parsed[j]));
+                         //console.log(sodium);
+                          }
+                       }
+                  }
+                  else if(str.search("protein"|| "Protein") != -1){
+                    console.log(str);
+                    var parsed=str.split(" ");
+                     for(j =0; j < parsed.length; j++){
+                         if(!isNaN(parseInt(parsed[j]))){
+                           protein.push(parseInt(parsed[j]));
+                           //console.log(protein);
+                            }
+                         }
+                    }
+                    else if(str.search("Carbohydrate"|| "carbohydrate") != -1){
+                      console.log(str);
+                      var parsed=str.split(" ");
+                       for(j =0; j < parsed.length; j++){
+                           if(!isNaN(parseInt(parsed[j]))){
+                            carbs.push(parseInt(parsed[j]));
+                             //console.log(carbs);
+                              }
+                           }
+                      }
+                      else if(str.search("Fiber"|| "fiber") != -1){
+                        console.log(str);
+                        var parsed=str.split(" ");
+                         for(j =0; j < parsed.length; j++){
+                             if(!isNaN(parseInt(parsed[j]))){
+                              fib.push(parseInt(parsed[j]));
+                               //console.log(fib);
+                                }
+                             }
+                        }
+                        else if(str.search("Cholesterol"|| "cholesterol") != -1){
+                          console.log(str);
+                          var parsed=str.split(" ");
+                           for(j =0; j < parsed.length; j++){
+                               if(!isNaN(parseInt(parsed[j]))){
+                                car.push(parseInt(parsed[j]));
+                                 //console.log(car);
+                                  }
+                               }
+                          }
           }
   
-
-      console.log(fat);
-       console.log(sugar);
-       console.log(protein);
-       console.log(carbs);
-       console.log(sodium);
       console.log(cal);
-   
-  
-  
-      //  var nutri=jsonString.slice(x,jsonString.length-1);
-    //   x=nutri.search("calories"||"Calories");
-    //  var y =nutri.search("Total");
-    //  var calories=nutri.slice(x,y);
-    //  console.log(calories);
-    
-    // function parseInfo(str,info,info2){
-     //   let x =str.search(info);
-      //  let y=str.search("..0")
-
+      console.log(fat);
+      console.log(cho);
+      console.log(sodium);
+      console.log(carbs);
+      console.log(fib);
+      console.log(sugar);
+      console.log(protein);
+      
+      
     }
+
     catch (error) {
      console.error(error);
    }
