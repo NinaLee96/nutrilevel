@@ -156,6 +156,46 @@ export default class HomeScreen extends React.Component {
                       }
                    }
               }
+        else if(str.search("Cholesterol"|| "cholesterol") != -1){
+                console.log(str);
+                var parsed=str.split(" ");
+                 for(j =0; j < parsed.length; j++){
+                     if(!isNaN(parseInt(parsed[j]))){
+                      cho.push(parseInt(parsed[j]));
+                       //console.log(cho);
+                        }
+                     }
+                }
+        else if(str.search("Sodium"|| "sodium") != -1){
+                  console.log(str);
+                  var parsed=str.split(" ");
+                   for(j =0; j < parsed.length; j++){
+                       if(!isNaN(parseInt(parsed[j]))){
+                         sodium.push(parseInt(parsed[j]));
+                         //console.log(sodium);
+                          }
+                       }
+                  }
+        else if(str.search("Carbohydrate"|| "carbohydrate") != -1){
+                    console.log(str);
+                    var parsed=str.split(" ");
+                     for(j =0; j < parsed.length; j++){
+                         if(!isNaN(parseInt(parsed[j]))){
+                          carbs.push(parseInt(parsed[j]));
+                           //console.log(carbs);
+                            }
+                         }
+                    }
+        else if(str.search("Fiber"|| "fiber") != -1){
+                      console.log(str);
+                      var parsed=str.split(" ");
+                       for(j =0; j < parsed.length; j++){
+                           if(!isNaN(parseInt(parsed[j]))){
+                            fib.push(parseInt(parsed[j]));
+                             //console.log(fib);
+                              }
+                           }
+                      }
               else if(str.search("sugar"|| "Sugar"||"Sugars" || "sugars") != -1){
                 console.log(str);
                 var parsed=str.split(" ");
@@ -167,16 +207,6 @@ export default class HomeScreen extends React.Component {
                      }
                 }
 
-                else if(str.search("Sodium"|| "sodium") != -1){
-                  console.log(str);
-                  var parsed=str.split(" ");
-                   for(j =0; j < parsed.length; j++){
-                       if(!isNaN(parseInt(parsed[j]))){
-                         sodium.push(parseInt(parsed[j]));
-                         //console.log(sodium);
-                          }
-                       }
-                  }
                   else if(str.search("protein"|| "Protein") != -1){
                     console.log(str);
                     var parsed=str.split(" ");
@@ -187,36 +217,8 @@ export default class HomeScreen extends React.Component {
                             }
                          }
                     }
-                    else if(str.search("Carbohydrate"|| "carbohydrate") != -1){
-                      console.log(str);
-                      var parsed=str.split(" ");
-                       for(j =0; j < parsed.length; j++){
-                           if(!isNaN(parseInt(parsed[j]))){
-                            carbs.push(parseInt(parsed[j]));
-                             //console.log(carbs);
-                              }
-                           }
-                      }
-                      else if(str.search("Fiber"|| "fiber") != -1){
-                        console.log(str);
-                        var parsed=str.split(" ");
-                         for(j =0; j < parsed.length; j++){
-                             if(!isNaN(parseInt(parsed[j]))){
-                              fib.push(parseInt(parsed[j]));
-                               //console.log(fib);
-                                }
-                             }
-                        }
-                        else if(str.search("Cholesterol"|| "cholesterol") != -1){
-                          console.log(str);
-                          var parsed=str.split(" ");
-                           for(j =0; j < parsed.length; j++){
-                               if(!isNaN(parseInt(parsed[j]))){
-                                cho.push(parseInt(parsed[j]));
-                                 //console.log(cho);
-                                  }
-                               }
-                          }
+                      
+                        
           }
   
       console.log(cal);
