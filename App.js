@@ -69,28 +69,6 @@ export default class App extends React.Component {
   };
 }
 
-// const MainNavigator = createStackNavigator(
-//   {
-//     Loading: {screen: Loading},
-//     // Test: {screen: TestMain},
-//     SignIn: {screen: SignIn},
-//     SignUp: {screen: SignUp},
-//     ConfirmCode: {screen: ConfirmCode},
-//     ForgotPassword: {screen: ForgotPassword},
-//     ChangePassword: {screen: ChangePassword},
-//   },
-//   {
-//     initialRoute: 'Loading',
-//     transitionConfig: (nav) => handleCustomTransition(nav),
-//     navigationOptions: {
-//       headerVisible: false,
-//     }
-//   },
-// );
-//
-// const AppContainer = createAppContainer(MainNavigator);
-// export default AppContainer;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

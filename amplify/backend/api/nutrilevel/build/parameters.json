@@ -1,0 +1,12 @@
+{
+    "AppSyncApiName": "nutrilevel",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authcognito439335c8",
+            "Outputs.UserPoolId"
+        ]
+    },
+    "S3DeploymentBucket": "nutrilevel-20190224011725-deployment",
+    "S3DeploymentRootKey": "amplify-appsync-files/b9924f14151f11da53b54118bbbf4fff268a2fd2"
+}
