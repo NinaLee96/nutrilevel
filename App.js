@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Dimensions, TouchableOpacity, StatusBar,Platform,TextInput, Alert, Button } from 'react-native';
-import Expo, { Constants, Location, Permissions,AppLoading, Asset, Font, Icon } from 'expo';
+import { StyleSheet, View, TextInput, Alert, Button } from 'react-native';
+
 
 
 
@@ -27,7 +27,7 @@ export default class App extends Component {
       <TextInput
         value={this.state.username}
         onChangeText={(username) => this.setState({ username })}
-        placeholder={'Username'}
+        placeholder={'Steven'}
         style={styles.input}
       />
       <TextInput
@@ -40,6 +40,7 @@ export default class App extends Component {
       
       <Button
         title={'Login'}
+        color='#000000'
         style={styles.input}
         onPress={this.onLogin.bind(this)}
       />
@@ -54,7 +55,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#ecf0f1',
+    backgroundColor: '#FFFFFF',
   },
   input: {
     width: 200,
@@ -63,5 +64,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'black',
     marginBottom: 10,
+    backgroundColor: 'black'
   },
 });
