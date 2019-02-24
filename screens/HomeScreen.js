@@ -213,7 +213,7 @@ export default class HomeScreen extends React.Component {
                            for(j =0; j < parsed.length; j++){
                                if(!isNaN(parseInt(parsed[j]))){
                                 cho.push(parseInt(parsed[j]));
-                                 //console.log(car);
+                                 //console.log(cho);
                                   }
                                }
                           }
