@@ -1,0 +1,19 @@
+{
+    "ntrenv": {
+        "awscloudformation": {
+            "AuthRoleName": "nutrilevel-20190224011725-authRole",
+            "UnauthRoleArn": "arn:aws:iam::576577282495:role/nutrilevel-20190224011725-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::576577282495:role/nutrilevel-20190224011725-authRole",
+            "Region": "us-west-2",
+            "DeploymentBucketName": "nutrilevel-20190224011725-deployment",
+            "UnauthRoleName": "nutrilevel-20190224011725-unauthRole",
+            "StackName": "nutrilevel-20190224011725",
+            "StackId": "arn:aws:cloudformation:us-west-2:576577282495:stack/nutrilevel-20190224011725/000a6260-3815-11e9-9590-0a6cf74fe974"
+        },
+        "categories": {
+            "auth": {
+                "cognito439335c8": {}
+            }
+        }
+    }
+}

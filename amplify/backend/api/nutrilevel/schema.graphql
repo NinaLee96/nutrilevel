@@ -1,0 +1,13 @@
+type Todo @model {
+  id: ID!
+  user: String!
+  item: String
+  image: String
+  serving_size: String
+  calories: String
+  total_fat: String
+  sodium: String
+  carbs: String
+  sugars: String 
+  protein: String
+}

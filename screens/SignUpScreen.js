@@ -10,12 +10,12 @@ import {
 } from 'react-native';
 
 import { WebBrowser, ImagePicker, Permissions } from 'expo';
-import Amplify, { Auth, Storage } from 'aws-amplify';
-import awsmobile from '../aws-exports';
-Amplify.configure(awsmobile);
+//import Amplify, { Auth, Storage } from 'aws-amplify';
+//import awsmobile from '../aws-exports';
+//Amplify.configure(awsmobile);
 import { Container, Header, Content, Form, Item, Input, Label, Button } from 'native-base';
-import { RNS3 } from 'react-native-aws3';
-import { MonoText } from '../components/StyledText';
+//import { RNS3 } from 'react-native-aws3';
+//import { MonoText } from '../components/StyledText';
 
 export default class HomeScreen extends React.Component {
   constructor(props){
@@ -23,29 +23,31 @@ export default class HomeScreen extends React.Component {
 
     this.state = {
         loading: true,
+        email: '',
         username: '',
-        password: ''
+        password: '',
+        confirmPass:'',
+        phone:''
     };
   }
   static navigationOptions = {
     header: null,
   };
 
-  async componentWillMount(){
+  /*async componentWillMount(){
     const { status, expires, permissions } = await Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL)
     if (status !== 'granted') {
       alert('Hey! You might want to enable notifications for my app, they are good.');
     }
   }
-
+  */
   handleChange(name, value) {
     this.setState({ [name]: value });
   }
 
-  trySignIn() {
+  /*trySignIn() {
     let username = this.state.username.trim();
     let password = this.state.password;
-
     Auth.signIn(
       username,
       password,
@@ -62,84 +64,86 @@ export default class HomeScreen extends React.Component {
   async takeImage() {
    let result = await ImagePicker.launchCameraAsync({
      allowsEditing: false,
-     base64: true,
      aspect: [4, 3]
    });
+   console.log(result);
    this.setState({image: result.uri});
-   // console.log(result);
-   this.analyzeText(result.base64);
+   this.uploadImage();
  };
 
- async pickImage() {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      allowsEditing: false,
-      base64: true,
-      ratio: [4, 3]
-    });
-
-    if (!result.cancelled) {
-      // console.log(result);
-      this.analyzeText(result.base64);
-      // this.setState({image: result.uri});
-      // this.uploadImage(result.uri);
+ uploadImage(){
+   let name = new Date();
+   const file = {
+      uri: this.state.image,
+      name: `${name}.png`,
+      type: "image/png"
     }
-  };
 
- async analyzeText(image) {
-   // console.log(response.body.postResponse.location)
-   try {
-     let response = await fetch(
-       'https://vision.googleapis.com/v1/images:annotate?key=AIzaSyCA3xZkHjuIT7TZZvc7cT2k2IGi2ZF-Voc',{
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            "requests": [
-              {
-                "image": {
-                  "content": image
-                },
-                "features": [
-                  {
-                    "type": "TEXT_DETECTION",
-                    "maxResults": 1
-                  }
-                ]
-              }
-            ]
-          }),
-       });
-     let responseJson = await response.json();
-     // console.log(responseJson);
-     console.log(responseJson.responses[0].fullTextAnnotation.text);
-   } catch (error) {
-     console.error(error);
-   }
+  const options = {
+    keyPrefix: "images/",
+    bucket: "nutrilevel-media-nutrienv",
+    region: "us-west-2",
+    accessKey: "AKIAJXYYAMGXKDUQB27Q",
+    secretKey: "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",
+    successActionStatus: 201
+  }
+
+  RNS3.put(file, options).then(response => {
+    if (response.status !== 201)
+      throw new Error("Failed to upload image to S3");
+    console.log(response.body);
+    /**
+     * {
+     *   postResponse: {
+     *     bucket: "your-bucket",
+     *     etag : "9f620878e06d28774406017480a59fd4",
+     *     key: "uploads/image.png",
+     *     location: "https://your-bucket.s3.amazonaws.com/uploads%2Fimage.png"
+     *   }
+     * }
+     *//*
+  });
  }
+
+ pickImage = async () => {
+   const result = await ImagePicker.launchImageLibraryAsync({
+     allowsEditing: false,
+     ratio: [4, 3]
+   });
+
+   if (!result.cancelled) {
+     this.setState({
+       image: result.uri,
+     });
+   }
+   console.log(this.state.image);
+   this.uploadImage();
+ };*/
+
+ doNothing(){}
 
   render() {
     return (
       <View style={styles.container}>
 
       <Form style={{top: 50}}>
-        <Item floatingLabel>
-          <Label>Username</Label>
-          <Input onChangeText={(e) => {this.handleChange('username', e)}}/>
+        <Item regular>
+          <Input placeholder = 'Email' onChangeText={(e) => {this.handleChange('email', e)}} style={styles.input}/>
         </Item>
-        <Item floatingLabel last>
-          <Label>Password</Label>
-          <Input onChangeText={(e) => {this.handleChange('password', e)}}/>
+        <Item regular>
+          <Input placeholder = 'Username' onChangeText={(e) => {this.handleChange('username', e)}} style={styles.input}/>
         </Item>
-        <Button onPress={() => {this.trySignIn()}} style={{top: 15, width: 120, alignSelf: 'center'}}>
-          <Text style={{justifyContent:'center'}}>Sign In</Text>
-        </Button>
-        <Button onPress={() => {this.takeImage()}} style={{top: 45, width: 120, alignSelf: 'center'}}>
-          <Text style={{justifyContent:'center'}}>Take Image</Text>
-        </Button>
-        <Button onPress={() => {this.pickImage()}} style={{top: 75, width: 120, alignSelf: 'center'}}>
-          <Text style={{justifyContent:'center'}}>Image Picker</Text>
+        <Item regular>
+          <Input placeholder = 'Password' onChangeText={(e) => {this.handleChange('password', e)}} style={styles.input}/>
+        </Item>
+        <Item regular>
+          <Input placeholder = 'Confirm Password' onChangeText={(e) => {this.handleChange('confirmPass', e)}} style={styles.input}/>
+        </Item>
+        <Item regular>
+          <Input placeholder = 'Phone Number' onChangeText={(e) => {this.handleChange('phone', e)}} style={styles.input}/>
+        </Item>
+        <Button onPress={() => {this.doNothing()}} style={[styles.inputButton, {top: 100, width: 120, alignSelf: 'center', justifyContent: 'center'}]}>
+          <Text style={{textAlign:'center',color:'white'}}>Sign Up</Text>
         </Button>
       </Form>
       </View>
@@ -234,5 +238,20 @@ const styles = StyleSheet.create({
   helpLinkText: {
     fontSize: 14,
     color: '#2e78b7',
+  },
+  input: {
+    width: 100,
+    //height: 44,
+    //padding: 10,
+    borderWidth: 0,
+    borderColor: 'black',
+    marginBottom: 20,
+    backgroundColor: 'black',
+    color:'white'
+  },
+  inputButton: {
+    borderWidth: 0,
+    borderColor: 'black',
+    backgroundColor: 'black',
   },
 });

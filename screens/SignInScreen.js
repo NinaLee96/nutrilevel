@@ -10,12 +10,10 @@ import {
 } from 'react-native';
 
 import { WebBrowser, ImagePicker, Permissions } from 'expo';
-//import Amplify, { Auth, Storage } from 'aws-amplify';
-//import awsmobile from '../aws-exports';
-//Amplify.configure(awsmobile);
+import Amplify, { Auth, Storage } from 'aws-amplify';
+import awsmobile from '../aws-exports';
+Amplify.configure(awsmobile);
 import { Container, Header, Content, Form, Item, Input, Label, Button } from 'native-base';
-//import { RNS3 } from 'react-native-aws3';
-//import { MonoText } from '../components/StyledText';
 
 export default class HomeScreen extends React.Component {
   constructor(props){

@@ -1,0 +1,10 @@
+{
+    "AppSyncApiName": "nutrilevel",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authcognito439335c8",
+            "Outputs.UserPoolId"
+        ]
+    }
+}
