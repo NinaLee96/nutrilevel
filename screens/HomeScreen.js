@@ -196,7 +196,7 @@ export default class HomeScreen extends React.Component {
                               }
                            }
                       }
-              else if(str.search("sugar"|| "Sugar"||"Sugars" || "sugars") != -1){
+              else if(str.search("Sugar") != -1){
                 console.log(str);
                 var parsed=str.split(" ");
                  for(j =0; j < parsed.length; j++){
@@ -207,7 +207,7 @@ export default class HomeScreen extends React.Component {
                      }
                 }
 
-                  else if(str.search("protein"|| "Protein") != -1){
+                  else if(str.search("Protein") != -1){
                     console.log(str);
                     var parsed=str.split(" ");
                      for(j =0; j < parsed.length; j++){
