@@ -46,6 +46,12 @@ export default class App extends Component {
         style={styles.input}
         onPress={this.onLogin.bind(this)}
       />
+      <Button
+        title={'Sign up'}
+        color='#000000'
+        style={styles.inputTop}
+        onPress={this.onLogin.bind(this)}
+      />
     </View>
 
     );
@@ -65,7 +71,18 @@ const styles = StyleSheet.create({
     padding: 10,
     borderWidth: 1,
     borderColor: 'black',
-    marginBottom: 10,
+    marginBottom: 20,
+    backgroundColor: 'black',
+    color:'white'
+  },
+  inputTop: {
+    width: 200,
+    height: 44,
+    padding: 10,
+    top: 300,
+    borderWidth: 1,
+    borderColor: 'black',
+    marginBottom: 20,
     backgroundColor: 'black',
     color:'white'
   },
