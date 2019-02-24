@@ -23,11 +23,8 @@ export default class HomeScreen extends React.Component {
 
     this.state = {
         loading: true,
-        email: '',
         username: '',
-        password: '',
-        confirmPass:'',
-        phone:''
+        password: ''
     };
   }
   static navigationOptions = {
@@ -128,21 +125,21 @@ export default class HomeScreen extends React.Component {
 
       <Form style={{top: 50}}>
         <Item regular>
-          <Input placeholder = 'Email' onChangeText={(e) => {this.handleChange('email', e)}} style={styles.input}/>
+          <Input placeholder = 'username' onChangeText={(e) => {this.handleChange('username', e)}} style={styles.input}/>
         </Item>
         <Item regular>
-          <Input placeholder = 'Username' onChangeText={(e) => {this.handleChange('username', e)}} style={styles.input}/>
+          <Input placeholder = 'password' onChangeText={(e) => {this.handleChange('password', e)}} style={styles.input}/>
         </Item>
-        <Item regular>
-          <Input placeholder = 'Password' onChangeText={(e) => {this.handleChange('password', e)}} style={styles.input}/>
-        </Item>
-        <Item regular>
-          <Input placeholder = 'Confirm Password' onChangeText={(e) => {this.handleChange('confirmPass', e)}} style={styles.input}/>
-        </Item>
-        <Item regular>
-          <Input placeholder = 'Phone Number' onChangeText={(e) => {this.handleChange('phone', e)}} style={styles.input}/>
-        </Item>
-        <Button onPress={() => {this.doNothing()}} style={[styles.inputButton, {top: 100, width: 120, alignSelf: 'center', justifyContent: 'center'}]}>
+        <Button onPress={() => {this.doNothing()}} style={[styles.inputButton, {top: 15, width: 120, alignSelf: 'center' , justifyContent: 'center'}]}>
+          <Text style={{flexDirection: "row", justifyContent: "center",color:'white'}}>Sign In</Text>
+        </Button>
+        <Button onPress={() => {this.doNothing()}} style={[styles.inputButton, {top: 45, width: 120, alignSelf: 'center', justifyContent: 'center'}]}>
+          <Text style={{textAlign:'center',color:'white'}}>Take Image</Text>
+        </Button>
+        <Button onPress={() => {this.doNothing()}} style={[styles.inputButton, {top: 75, width: 120, alignSelf: 'center', justifyContent: 'center'}]}>
+          <Text style={{textAlign:'center',color:'white'}}>Image Picker</Text>
+        </Button>
+        <Button onPress={() => {this.doNothing()}} style={[styles.inputButton, {top: 175, width: 120, alignSelf: 'center', justifyContent: 'center'}]}>
           <Text style={{textAlign:'center',color:'white'}}>Sign Up</Text>
         </Button>
       </Form>
