@@ -141,17 +141,18 @@ export default class HomeScreen extends React.Component {
          var parsed=str.split(" ");
           for(j =0; j < parsed.length; j++){
               if(typeof parseInt(parsed[j]=="number")){
-                cal==parsedInt(parsed[j]);
+                cal=parsedInt(parsed[j]);
                 console.log(cal);
               }
               }
+            }
           }
-      }
+      
         
         // if(str.search("Total Fat")){
         //   fat=parseInt(str,10);
         // }
-      }
+      
       console.log(cal);
       //console.log(fat);
    
