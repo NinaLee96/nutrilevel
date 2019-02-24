@@ -352,7 +352,7 @@ export default class HomeScreen extends React.Component {
         offsetX={15}
         offsetY={15}
         >
-          <ActionButton.Item size={40} buttonColor='white' title="Select Image" onPress={() => this.tryCompress()}>
+          <ActionButton.Item size={40} buttonColor='white' title="Select Image" onPress={() => this.pickImage()}>
             <Icon name="image" style={styles.actionButtonIcon} />
           </ActionButton.Item>
           <ActionButton.Item size={40} buttonColor='white' title="Capture Image" onPress={() => this.takeImage()}>
