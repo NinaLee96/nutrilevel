@@ -125,9 +125,14 @@ export default class HomeScreen extends React.Component {
        var sodium;
        var fat=[];
        var cal=[];
+       x.push(" ");
      
       for(i=0;i<x.length ;i++){
         var str = x[i];
+        b=str.search("vitamin"||"Vitamin");
+        if(b!=-1){
+          i=x.length-1;
+        }
         n=str.search("Calories" || "calories" || "Calorles" );
         if(n != -1){
          console.log(str);
